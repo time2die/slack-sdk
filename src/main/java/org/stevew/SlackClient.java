@@ -42,9 +42,7 @@ public class SlackClient {
     //******************
 
     public String testAuth() {
-
-        String output = RestUtils.sendRequest(getURL(Operations.AUTH_TEST));
-        return output;
+        return RestUtils.sendRequest(getURL(Operations.AUTH_TEST));
     }
 
     public Boolean isConnected() {
