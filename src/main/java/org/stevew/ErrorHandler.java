@@ -7,6 +7,7 @@ import org.stevew.exceptions.SlackException;
  * Created by estebanwasinger on 2/20/15.
  */
 public class ErrorHandler {
+    private ErrorHandler() {}
 
     public static void verifyResponse(String response) {
         if (isValidResponse(response)) {
