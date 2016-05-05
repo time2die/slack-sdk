@@ -28,7 +28,7 @@ public class RestUtils {
         ClientResponse response = webResource.accept(APPLICATION_JSON).get(ClientResponse.class);
 
         if (response.getStatus() != 200) {
-            throw new RuntimeException(APPLICATION_JSON
+            throw new RuntimeException("Failed : HTTP error code : "
                     + response.getStatus());
         }
 
@@ -41,10 +41,8 @@ public class RestUtils {
 
         ClientResponse response = webResource.accept(APPLICATION_JSON).get(ClientResponse.class);
 
-        if (response.getStatus() != 200) {
-            throw new RuntimeException(APPLICATION_JSON
-                    + response.getStatus());
-        }
+        checkResponse(response) ;
+
         String output = response.getEntity(String.class);
 
         ErrorHandler.verifyResponse(output);
@@ -66,10 +64,7 @@ public class RestUtils {
 
         ClientResponse response = webResource.type(MediaType.MULTIPART_FORM_DATA).accept(APPLICATION_JSON).post(ClientResponse.class, multiPart);
 
-        if (response.getStatus() != 200) {
-            throw new RuntimeException(APPLICATION_JSON
-                    + response.getStatus());
-        }
+        checkResponse(response) ;
 
         String output = response.getEntity(String.class);
 
@@ -91,10 +86,7 @@ public class RestUtils {
 
         ClientResponse response = webResource.type(MediaType.MULTIPART_FORM_DATA).accept(APPLICATION_JSON).post(ClientResponse.class, multiPart);
 
-        if (response.getStatus() != 200) {
-            throw new RuntimeException(APPLICATION_JSON
-                    + response.getStatus());
-        }
+        checkResponse(response) ;
 
         String output = response.getEntity(String.class);
 
@@ -102,6 +94,13 @@ public class RestUtils {
 
         return output;
 
+    }
+
+    private static void checkResponse(ClientResponse response){
+        if (response.getStatus() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + response.getStatus());
+        }
     }
 
 
