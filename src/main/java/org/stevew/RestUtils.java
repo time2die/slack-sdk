@@ -56,9 +56,6 @@ public class RestUtils {
 
         WebResource webResource = new Client().resource(request.createUrl());
 
-        WebResource.Builder authorizedWebResource = webResource
-                .header(CONTENT_TYPE, FORM_DATA);
-
         FormDataMultiPart multiPart = new FormDataMultiPart();
         multiPart.bodyPart(new FileDataBodyPart("file", file, MediaType.APPLICATION_OCTET_STREAM_TYPE));
 
@@ -77,9 +74,6 @@ public class RestUtils {
     public static String sendAttachmentRequest(SlackRequest request, InputStream file) {
 
         WebResource webResource = new Client().resource(request.createUrl());
-
-        WebResource.Builder authorizedWebResource = webResource
-                .header(CONTENT_TYPE, FORM_DATA);
 
         FormDataMultiPart multiPart = new FormDataMultiPart();
         multiPart.bodyPart(new StreamDataBodyPart("file",file,null,MediaType.APPLICATION_OCTET_STREAM_TYPE));
