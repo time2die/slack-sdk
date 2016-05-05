@@ -15,8 +15,9 @@ import java.io.InputStream;
  * Created by estebanwasinger on 12/5/14.
  */
 public class RestUtils {
+    private static final String CONTENT_TYPE = "Content-Type" ;
+    private static final String FORM_DATA = "multipart/form-data" ;
     private static String APPLICATION_JSON = "application/json" ;
-    private static String FailedHTTPCode = "Failed : HTTP error code : " ;
 
     private RestUtils() {
     }
@@ -24,10 +25,10 @@ public class RestUtils {
     public static String sendRequest(String url) {
         WebResource webResource = new Client().resource(url);
 
-        ClientResponse response = webResource.accept("APPLICATION_JSON").get(ClientResponse.class);
+        ClientResponse response = webResource.accept(APPLICATION_JSON).get(ClientResponse.class);
 
         if (response.getStatus() != 200) {
-            throw new RuntimeException("APPLICATION_JSON"
+            throw new RuntimeException(APPLICATION_JSON
                     + response.getStatus());
         }
 
@@ -38,10 +39,10 @@ public class RestUtils {
 
         WebResource webResource = new Client().resource(request.createUrl());
 
-        ClientResponse response = webResource.accept("APPLICATION_JSON").get(ClientResponse.class);
+        ClientResponse response = webResource.accept(APPLICATION_JSON).get(ClientResponse.class);
 
         if (response.getStatus() != 200) {
-            throw new RuntimeException("APPLICATION_JSON"
+            throw new RuntimeException(APPLICATION_JSON
                     + response.getStatus());
         }
         String output = response.getEntity(String.class);
@@ -58,15 +59,15 @@ public class RestUtils {
         WebResource webResource = new Client().resource(request.createUrl());
 
         WebResource.Builder authorizedWebResource = webResource
-                .header("Content-Type", "multipart/form-data");
+                .header(CONTENT_TYPE, FORM_DATA);
 
         FormDataMultiPart multiPart = new FormDataMultiPart();
         multiPart.bodyPart(new FileDataBodyPart("file", file, MediaType.APPLICATION_OCTET_STREAM_TYPE));
 
-        ClientResponse response = webResource.type(MediaType.MULTIPART_FORM_DATA).accept("APPLICATION_JSON").post(ClientResponse.class, multiPart);
+        ClientResponse response = webResource.type(MediaType.MULTIPART_FORM_DATA).accept(APPLICATION_JSON).post(ClientResponse.class, multiPart);
 
         if (response.getStatus() != 200) {
-            throw new RuntimeException("APPLICATION_JSON"
+            throw new RuntimeException(APPLICATION_JSON
                     + response.getStatus());
         }
 
@@ -83,15 +84,15 @@ public class RestUtils {
         WebResource webResource = new Client().resource(request.createUrl());
 
         WebResource.Builder authorizedWebResource = webResource
-                .header("Content-Type", "multipart/form-data");
+                .header(CONTENT_TYPE, FORM_DATA);
 
         FormDataMultiPart multiPart = new FormDataMultiPart();
         multiPart.bodyPart(new StreamDataBodyPart("file",file,null,MediaType.APPLICATION_OCTET_STREAM_TYPE));
 
-        ClientResponse response = webResource.type(MediaType.MULTIPART_FORM_DATA).accept("APPLICATION_JSON").post(ClientResponse.class, multiPart);
+        ClientResponse response = webResource.type(MediaType.MULTIPART_FORM_DATA).accept(APPLICATION_JSON).post(ClientResponse.class, multiPart);
 
         if (response.getStatus() != 200) {
-            throw new RuntimeException("APPLICATION_JSON"
+            throw new RuntimeException(APPLICATION_JSON
                     + response.getStatus());
         }
 
