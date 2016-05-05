@@ -27,10 +27,7 @@ public class RestUtils {
 
         ClientResponse response = webResource.accept(APPLICATION_JSON).get(ClientResponse.class);
 
-        if (response.getStatus() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + response.getStatus());
-        }
+        checkResponse(response) ;
 
         return response.getEntity(String.class);
     }
